@@ -47,7 +47,7 @@ namespace ApplicationChallenge
                 }
                 else // Already visited node
                 {
-                    if (current.Parent.BestValue < prev.BestValue)
+                    if (current.Parent.BestValue < prev.BestValue) // Change parent of current node
                     {
                         int diff = prev.BestValue - current.Parent.BestValue;
                         current.Parent = prev;
@@ -61,7 +61,6 @@ namespace ApplicationChallenge
         
         public Node MaxPath(Node tree = null, int nodes = -1)
         {
-            //return MaxPathDP(new Path[numberOfNodes], root, 0, 0);
             return MaxPath(new Node[nodes==-1?numberOfNodes:nodes],null,tree??root,0, 0);
         }
     }
