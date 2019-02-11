@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace ApplicationChallenge
 {
+    /// <summary>
+    /// Class used to represent the triangle/tree.
+    /// Contains a reference to it's parent, to allow backtracking path when bottom node has been reached.
+    /// </summary>
     class Node
     {
         private static int ID = 0;
@@ -15,7 +19,7 @@ namespace ApplicationChallenge
         internal Node Right { get; }
         internal Node Parent { get; set; }
         public int BestValue { get; set; } = int.MinValue;
-        public readonly int Value;
+        public int Value { get; }
         public int Depth { get; set; } = 0;
 
         public Node(Node left, int value, Node right) // Node constructor
@@ -58,7 +62,7 @@ namespace ApplicationChallenge
             return path;
         }
 
-        public int GetValue()
+        public int GetPathValue()
         {
             int sum = 0;
 
