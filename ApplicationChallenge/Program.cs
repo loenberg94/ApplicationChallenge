@@ -10,7 +10,7 @@ namespace ApplicationChallenge
     {
         static void Main(string[] args)
         {
-            string file = @"C:\Users\loenb\Desktop\tree.txt";
+            string file = @"C:\Users\loenb\Desktop\tree.txt"; // Enter own file path
 
             Triangle triangle = new Triangle(file);
             Node res = triangle.MaxPath();

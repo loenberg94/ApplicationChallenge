@@ -21,6 +21,7 @@ namespace ApplicationChallenge
         public int BestValue { get; set; } = int.MinValue;
         public int Value { get; }
         public int Depth { get; set; } = 0;
+        public bool FullyVisited { get; set; } = false;
 
         public Node(Node left, int value, Node right) // Node constructor
         {
@@ -74,6 +75,23 @@ namespace ApplicationChallenge
             }
 
             return sum;
+        }
+
+        public void UpdateBestValue()
+        {
+            int cSum = Value;
+            Node tmp = Parent;
+            while (tmp != null)
+            {
+                if(tmp.FullyVisited)
+                {
+                    cSum += tmp.BestValue;
+                    break;
+                }
+                cSum += tmp.Value;
+                tmp = tmp.Parent;
+            }
+            BestValue = cSum;
         }
     }
 }

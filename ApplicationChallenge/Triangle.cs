@@ -94,12 +94,18 @@ namespace ApplicationChallenge
                 }
                 else // Already visited node
                 {
+                    current.Parent.UpdateBestValue();
                     if (current.Parent.BestValue < parent.BestValue) // Change parent of current node
                     {
                         int diff = parent.BestValue - current.Parent.BestValue;
                         current.Parent = parent;
                         current.BestValue = current.BestValue + diff;
                     }
+                    else
+                    {
+                        current.BestValue = current.Parent.BestValue + current.Value;
+                    }
+                    current.FullyVisited = true;
                     return vNodes[current.Id];
                 }
             }
