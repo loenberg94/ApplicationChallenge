@@ -19,33 +19,32 @@ namespace ApplicationChallenge
             for (int i = 0; i < depth + 1; i++) size += i;
             return size;
         }
+        
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tree"></param>
-        /// <returns></returns>
         private Node StringToTree(string[] tree)
         {
             List<List<Node>> nodeStructure = new List<List<Node>>(tree.Length); // initialize node structure
             for (int i = 0; i < tree.Length; i++) nodeStructure.Add(new List<Node>());
-
+            int lastLineIndex = tree.Length - 1;
             for (int i = tree.Length - 1; i >= 0; i--) // Creating tree from the bottom up
             {
-                MatchCollection digits = Regex.Matches(tree[i], "\\d+"); // Gets all number occurrences in line
-                for (int j = 0; j < digits.Count; j++)
+                if (tree[i] == "") lastLineIndex--;
+                else
                 {
-                    int value = int.Parse(digits[j].Value);
-                    if (i != tree.Length - 1)
+                    MatchCollection digits = Regex.Matches(tree[i], "\\d+"); // Gets all number occurrences in line
+                    for (int j = 0; j < digits.Count; j++)
                     {
-                        Node left = nodeStructure[i + 1][j];
-                        Node right = nodeStructure[i + 1][j + 1];
-                        nodeStructure[i].Add(new Node(left,value,right));
-                    }
-                    else
-                    {
-                        nodeStructure[i].Add(new Node(value));
+                        int value = int.Parse(digits[j].Value);
+                        if (i != lastLineIndex)
+                        {
+                            Node left = nodeStructure[i + 1][j];
+                            Node right = nodeStructure[i + 1][j + 1];
+                            nodeStructure[i].Add(new Node(left, value, right));
+                        }
+                        else
+                        {
+                            nodeStructure[i].Add(new Node(value));
+                        }
                     }
                 }
             }
@@ -125,7 +124,6 @@ namespace ApplicationChallenge
 
         public Triangle(string fileName)
         {
-            // Error handling, such as exceptions, should be handled where the object is created and used, not here.
             string[] lines = File.ReadAllLines(fileName);
             root = StringToTree(lines);
             numberOfNodes = TreeSize(lines.Length);
